@@ -1,22 +1,44 @@
+from Python_Orientação_a_Objeto.avaliacao import Avaliacao
+
 class Restaurante:
     ''' Atributos da Classe'''
     restaurantes = []
     
     def __init__(self, nome, categoria):
-        self.nome = nome
-        self.categoria = categoria
-        self.ativo = False
+        self._nome = nome.title()
+        self._categoria = categoria.upper()
+        self._ativo = False
+        self._avaliacao = []
         Restaurante.restaurantes.append(self)
     
     def __str__(self):
-        return f'{self.nome} | {self.categoria}'
+        return f'{self._nome} | {self._categoria}'
     
-    def listar_restaurantes():
-        for restaurante in Restaurante.restaurantes:
-            print(f'{restaurante.nome} | {restaurante.categoria} | {restaurante.ativo}')
-        
-    
-restaurante_praca = Restaurante('Praça', 'Gourmet')
-restaurante_pizza = Restaurante('Pizza', 'Italiana')
+    @classmethod
+    def listar_restaurantes(cls):
+        print(f'{'Nome do restaurante'.ljust(25)} | {'Categoria'.ljust(25)} | {'Avaliação'.ljust(25)} | {'Status'}')
+        for restaurante in cls.restaurantes:
+            print(f'{restaurante._nome.ljust(25)} | {restaurante._categoria.ljust(25)} | {str(restaurante.media_avaliacoes).ljust(25)} | {restaurante.ativo.ljust(25)}')
 
-Restaurante.listar_restaurantes()
+    @property
+    def ativo(self):
+        return 'ativo' if self._ativo else 'desativado'
+    
+    def alternar_estado(self):
+        self._ativo = not self._ativo
+    
+    def receber_avaliacao(self, cliente, nota):
+        if 0 <= nota <= 5:
+            avaliacao = Avaliacao(cliente, nota)
+            self._avaliacao.append(avaliacao)
+            print(f'Avaliação adicionada: Cliente {cliente}, Nota {nota}')  # Debug
+    
+    @property
+    def media_avaliacoes(self):
+        if not self._avaliacao:
+            return '-'
+        
+        soma_das_notas = sum(avaliacao._nota for avaliacao in self._avaliacao)
+        quantidade_de_notas = len(self._avaliacao)
+        media = round((soma_das_notas / quantidade_de_notas), 1)
+        return media
