@@ -1,4 +1,4 @@
-from Python_Orientação_a_Objeto.avaliacao import Avaliacao
+from modelos.avaliacao import Avaliacao
 
 class Restaurante:
     ''' Atributos da Classe'''
