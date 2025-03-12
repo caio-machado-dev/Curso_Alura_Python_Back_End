@@ -1,4 +1,5 @@
 from modelos.avaliacao import Avaliacao
+from modelos.cardapio.item_cardapio import ItemCardapio
 
 class Restaurante:
     ''' Atributos da Classe'''
@@ -9,6 +10,7 @@ class Restaurante:
         self._categoria = categoria.upper()
         self._ativo = False
         self._avaliacao = []
+        self._cardapio = []
         Restaurante.restaurantes.append(self)
     
     def __str__(self):
@@ -20,6 +22,7 @@ class Restaurante:
         for restaurante in cls.restaurantes:
             print(f'{restaurante._nome.ljust(25)} | {restaurante._categoria.ljust(25)} | {str(restaurante.media_avaliacoes).ljust(25)} | {restaurante.ativo.ljust(25)}')
 
+    ''' @property - Decorator em python que transforma um método em um atributo da classe '''
     @property
     def ativo(self):
         return 'ativo' if self._ativo else 'desativado'
@@ -42,3 +45,14 @@ class Restaurante:
         quantidade_de_notas = len(self._avaliacao)
         media = round((soma_das_notas / quantidade_de_notas), 1)
         return media
+    
+    def adicionar_no_cardapio(self, item):
+        if isinstance(item, ItemCardapio):
+            self._cardapio.append(item)
+    
+    @property
+    def exibir_cardapio(self):
+        print(f'Cardapio do restaurante {self._nome}\n')
+        for i, item in enumerate(self._cardapio, start = 1):
+            mensage = f'{i}. Nome:{item._nome.ljust(20)} | Preço: R${item._preco}'
+            print(mensage)
