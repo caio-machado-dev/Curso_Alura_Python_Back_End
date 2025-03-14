@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 
 # Ambientes Virtuais
-venv/
+venv
 .env
 
 # Dependências
