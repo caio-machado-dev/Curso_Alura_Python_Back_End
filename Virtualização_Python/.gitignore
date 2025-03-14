@@ -1,0 +1,29 @@
+# Python
+__pycache__/ 
+*.py[cod]
+
+# Ambientes Virtuais
+venv/
+.env
+
+# Dependências
+Pipfile.lock
+poetry.lock
+
+# Logs e Dumps
+*.log
+
+# Configurações do Editor
+.vscode/
+.idea/
+
+# Banco de dados SQLite
+*.sqlite3
+
+# FastAPI
+static/
+media/
+
+# Outros
+.DS_Store
+tmp/
