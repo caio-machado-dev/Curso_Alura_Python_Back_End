@@ -6,5 +6,5 @@ da aplicação
 '''
 urlpatterns = [
     path('', index, name='index'),
-    path ('imagem/<int: foto_id>', imagem, name='image')
+    path ('imagem/<int:foto_id>', imagem, name='image')
 ]
